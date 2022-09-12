@@ -1,0 +1,15 @@
+body {
+    background-image: url("https://assets.pokemon.com/static2/_ui/img/og-default-image.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#mainTitle {
+    color: gold;
+}
+
+#indexPage {
+    margin: 10px;
+    
+}
