@@ -1,9 +1,10 @@
 body {
-  background-image: url("https://assets.pokemon.com/static2/_ui/img/og-default-image.jpeg");
+  background-image: url("./images/pokeball3.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; 
+ 
 }
 
 #mainTitle {
@@ -25,13 +26,25 @@ sup {
 
 .box_container{
   display: flex;
-  justify-content: center;
-  height: 300px;
-  width: 30%;
+  align-items: center;
+  flex-direction: column;
+width: auto;
   margin: 10px;
   border-width: 10px;
     border-style: solid;
     border-color: #33AFFF;
     padding: 10px;
     background-color: lightcoral;
+}
+
+#main_body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+#audio {
+  color: white;
 }
