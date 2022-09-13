@@ -19,6 +19,19 @@ body {
 sup {
   font-size: 8px;
 }
-h5 {
+#disclosure {
   font-size: 10px;
+}
+
+.box_container{
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  width: 30%;
+  margin: 10px;
+  border-width: 10px;
+    border-style: solid;
+    border-color: #33AFFF;
+    padding: 10px;
+    background-color: lightcoral;
 }
