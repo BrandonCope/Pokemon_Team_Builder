@@ -2,27 +2,31 @@ import { createPokeList } from "./allPokemonList.js";
 import { createHome } from "./home.js";
 import { createTeam } from "./team.js";
 
+const mainBody = document.querySelector("#main_body");
+const teamListNav = document.querySelector("#teamList");
+const pokeListNav = document.querySelector("#pokeList");
+const homeNav = document.querySelector("#home");
+
 document.querySelector("#home").addEventListener("click", (e) => {
     e.preventDefault()
-    document.querySelector("#main_body").innerHTML = createHome();
-    document.querySelector("#home").classList.add("active")
-    document.querySelector("#teamList").classList.remove("active")
-    document.querySelector("#pokeList").classList.remove("active")
+    mainBody.innerHTML = createHome();
+    homeNav.classList.add("active")
+    teamListNav.classList.remove("active")
+    pokeListNav.classList.remove("active")
 });
 
 document.querySelector("#pokeList").addEventListener("click", (e) => {
     e.preventDefault()
-    document.querySelector("#main_body").innerHTML = createPokeList();
-    document.querySelector("#pokeList").classList.add("active")
-    document.querySelector("#home").classList.remove("active")
-    document.querySelector("#teamList").classList.remove("active")
+    mainBody.innerHTML = createPokeList();
+    pokeListNav.classList.add("active")
+    teamListNav.classList.remove("active")
+    homeNav.classList.remove("active")
 })
 
 document.querySelector("#teamList").addEventListener("click", (e) => {
     e.preventDefault()
-    document.querySelector("#main_body").innerHTML = createTeam();
-    document.querySelector("#teamList").classList.add("active")
-    document.querySelector("#home").classList.remove("active")
-    document.querySelector("#pokeList").classList.remove("active")
-
+    mainBody.innerHTML = createTeam({parentElem: mainBody});
+    teamListNav.classList.add("active")
+    homeNav.classList.remove("active")
+    pokeListNav.classList.remove("active")
 })
