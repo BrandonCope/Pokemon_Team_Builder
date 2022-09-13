@@ -3,6 +3,7 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed; 
 }
 
 #mainTitle {
@@ -12,5 +13,12 @@ body {
 #indexPage,
 #pokeList,
 #teamList {
-  margin: 10px;
+  margin: 20px;
+}
+
+sup {
+  font-size: 8px;
+}
+h5 {
+  font-size: 10px;
 }
