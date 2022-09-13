@@ -12,7 +12,7 @@ function createDiv({parentElt}) {
     const div = elementFactory({
         parentElt,
         eltType: "div",
-        attrs: [{name: "style", value: "border: 3px solid black; padding: 100px"}]
+        attrs: [{name: "style", value: "border: 3px solid white; padding: 100px"}]
     })
     return div;
 }
