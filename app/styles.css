@@ -14,3 +14,11 @@ body {
 #teamList {
   margin: 10px;
 }
+
+
+#teamList_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}

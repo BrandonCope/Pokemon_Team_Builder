@@ -25,8 +25,13 @@ document.querySelector("#pokeList").addEventListener("click", (e) => {
 
 document.querySelector("#teamList").addEventListener("click", (e) => {
     e.preventDefault()
-    mainBody.innerHTML = createTeam({parentElem: mainBody});
+    mainBody.innerHTML = createTeam();
     teamListNav.classList.add("active")
     homeNav.classList.remove("active")
     pokeListNav.classList.remove("active")
 })
+
+window.onload = () => {
+    mainBody.innerHTML = createHome()
+    homeNav.classList.add("active")
+}
