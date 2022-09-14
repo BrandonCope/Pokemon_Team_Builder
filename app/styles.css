@@ -6,24 +6,12 @@ body {
   background-attachment: fixed;
 }
 
-#mainTitle {
-  color: gold;
-}
-
 #teamList_content {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 50px;
   gap: 50px;
-}
-
-sup {
-  font-size: 8px;
-}
-
-#disclosure {
-  font-size: 10px;
 }
 
 .box_container {
@@ -45,8 +33,4 @@ sup {
   flex-direction: column;
   align-items: center;
   width: auto;
-}
-
-#audio {
-  color: white;
 }
