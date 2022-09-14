@@ -7,9 +7,9 @@ body {
  
 }
 
-#mainTitle {
+/* #mainTitle {
   color: gold;
-}
+} */
 
 #indexPage,
 #pokeList,
@@ -27,9 +27,9 @@ body {
 sup {
   font-size: 8px;
 }
-#disclosure {
+/* #disclosure {
   font-size: 10px;
-}
+} */
 
 .box_container{
   display: flex;
@@ -52,6 +52,6 @@ width: auto;
   width: auto;
 }
 
-#audio {
+/* #audio {
   color: white;
-}
+} */

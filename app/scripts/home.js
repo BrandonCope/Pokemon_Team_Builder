@@ -1,34 +1,70 @@
-export function createHome() {
-    const contentDiv = `<section class="box_container">
-    <h1 id="mainTitle">Pokémon Team Builder</h1>
-    <div>
-      <h2>Build your dream Pokémon team!</h2>
-      <p>
-        Pokémon Team Builder is designed to help you design your dream team.
-      </p>
-      <p>
-        Create and design custom Pokémon teams for better battle
-        organizations
-      </p>
-      <h5 id="disclosure">
-        Disclosure: This app is created as a team learning project and is
-        not intended for marketing purposes or external use.
-        <p>All rights belong to GameFreak and Nintendo.</p>
-      </h5>
-    </div>
-</section>
+import { elementFactory } from "./helper_functions.js";
+export function createHome({ parentElt }) {
+  parentElt.innerHTML = "";
+  const homepage = elementFactory({
+    eltType: "div",
+  });
+  const card = elementFactory({
+    eltType: "section",
+    parentElt: homepage,
+    classNames: ["box_container"],
+  });
+  const header = elementFactory({
+    eltType: "h1",
+    parentElt: card,
+    attrs: [{ name: "style", value: "color: gold;" }],
+    text: "Pokémon Team Builder",
+  });
+  const subcard = elementFactory({
+    eltType: "div",
+    parentElt: card,
+    classNames: "card",
+  });
+  const subHeader = elementFactory({
+    eltType: "h2",
+    parentElt: subcard,
+    text: "Build your dream Pokémon team!",
+  });
+  const p = elementFactory({
+    eltType: "p",
+    parentElt: subcard,
+    text: "Pokémon Team Builder is designed to help you design your dream team.",
+  });
+  const p2 = elementFactory({
+    eltType: "p",
+    parentElt: subcard,
+    text: "Create and design custom Pokémon teams for better battle organizations",
+  });
+  const disclaimer = elementFactory({
+    eltType: "h5",
+    parentElt: subcard,
+    text: "Disclosure: This app is created as a team learning project and is not intended for marketing purposes or external use.",
+    attrs: [{ name: "style", value: "font-size: 10px;" }],
+  });
+  const p3 = elementFactory({
+    eltType: "p",
+    parentElt: subcard,
+    text: "All rights belong to GameFreak and Nintendo.",
+  });
 
-<!-- This adds the music and controls -->
-<figure id="audio">
-  <figcaption>Pokémon Theme Song<sup>(TM)</sup>:</figcaption>
-  <!-- autoplay  -->
-  <audio  
-  controls 
-  src="./app/Audio/Pokémon_Theme_Song.mp4">
-    Your browser does not support the
-    <code>audio</code> element.
-  </audio>
-</figure>`
+  const audio = elementFactory({
+    eltType: "figure",
+    parentElt: homepage,
+  });
+  const caption = elementFactory({
+    eltType: "figcaption",
+    parentElt: audio,
+    text: "Pokémon Theme Song(TM)",
+    attrs: [{ name: "style", value: "color: white;" }],
+  });
+  const sounds = elementFactory({
+    eltType: "audio",
+    parentElt: audio,
+    attrs: [
+      { name: "controls" },
+      { name: "src", value: "./app/Audio/Pokémon_Theme_Song.mp4" },
+    ],
+  });
 
-    return contentDiv;
+  parentElt.appendChild(homepage);
 }
