@@ -14,11 +14,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 50px;
+  gap: 50px;
 }
 
 sup {
   font-size: 8px;
 }
+
 #disclosure {
   font-size: 10px;
 }
