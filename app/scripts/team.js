@@ -85,9 +85,9 @@ function handleTeam(e) {
 }
 
 function promptNewTeamName() {
-  let teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
-  const storage = localStorage;
-  const keys = Object.keys(storage);
+    let teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
+    const storage = localStorage;
+    const keys = Object.keys(storage)
 
     let nameInput;
     if (teamNum) {
@@ -110,15 +110,6 @@ function promptNewTeamName() {
             return nameInput
         } 
     }
-  } else {
-    localStorage.setItem("teamNum", "1");
-    teamNum = parseInt(localStorage.getItem("teamNum"));
-    nameInput = prompt("Enter Your New Team Name", `Team 1`);
-    if (nameInput != null && nameInput != "") {
-      localStorage.setItem(`${nameInput}`, "");
-      return nameInput;
-    }
-  }
 }
 
 function createTeamContainer({ parentElt }) {
