@@ -40,20 +40,20 @@ window.onload = () => {
 
   switch (activePage) {
     case "home":
-      createHome({ parentElt: mainBody });
-      homeNav.classList.add("active");
-      break;
+        createHome({ parentElt: mainBody });
+        homeNav.classList.add("active");
+        break;
     case "pokeList":
-      createPokeList({ parentElt: mainBody });
-      pokeListNav.classList.add("active");
-      break;
-   case "teamList":
-            createTeamPage({parentElt: mainBody})
-            teamListNav.classList.add("active")
-            break;
+        createPokeList({ parentElt: mainBody });
+        pokeListNav.classList.add("active");
+        break;
+    case "teamList":
+        createTeamPage({parentElt: mainBody})
+        teamListNav.classList.add("active")
+        break;
     default:
-      createHome({ parentElt: mainBody });
-      homeNav.classList.add("active");
-      break;
+        createHome({ parentElt: mainBody });
+        homeNav.classList.add("active");
+        break;
   }
 };
