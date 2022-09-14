@@ -71,28 +71,46 @@ function handleTeam(e) {
     e.preventDefault();
     const parentElt = e.target.parentElement;
     const nameInput = promptNewTeamName()
-    console.log(parentElt)
-    console.log(nameInput)
-    elementFactory({
-        parentElt,
-        eltType: "div",
-        text: `${nameInput}`,
-        classNames: ["rounded"],
-        attrs: [
-            {name: "style", value: "padding: 100px; margin: 10px; background-color: lightblue; border-radius:"},
-    ]
-    })
+    if (nameInput != null && nameInput != "") {
+        elementFactory({
+            parentElt,
+            eltType: "div",
+            text: `${nameInput}`,
+            classNames: ["rounded"],
+            attrs: [
+                {name: "style", value: "padding: 100px; margin: 10px; background-color: lightblue; border-radius:"},
+        ]
+        })
+    }
 }
 
 function promptNewTeamName() {
-    const teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
+    let teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
+    const storage = localStorage;
+    const keys = Object.keys(storage)
+
     let nameInput;
-    teamNum ? 
-    (nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`),
-    localStorage.setItem("teamNum", `${teamNum}`))
-    : (localStorage.setItem("teamNum", "1"), nameInput = prompt("Enter Your New Team Name", `Team 1`));
-    localStorage.setItem(`${nameInput}`, "")
-    return nameInput
+    if (teamNum) {
+        nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`);
+        // TODO: clean up with while loop?
+        if (nameInput != null && nameInput != "") {
+            if (!keys.includes(nameInput)) {
+                localStorage.setItem(`${nameInput}`, "")
+                localStorage.setItem("teamNum", `${teamNum}`)
+                return nameInput
+            } else {
+                alert("That Team Name Already Exists!!!")
+            }
+        } 
+    } else {
+        localStorage.setItem("teamNum", "1");
+        teamNum = parseInt(localStorage.getItem("teamNum"))
+        nameInput = prompt("Enter Your New Team Name", `Team 1`);
+        if (nameInput != null && nameInput != "") {
+            localStorage.setItem(`${nameInput}`, "")
+            return nameInput
+        } 
+    }
 }
 
 function createTeamContainer({parentElt}) {
