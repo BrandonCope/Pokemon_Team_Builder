@@ -63,6 +63,7 @@ export function createHome({ parentElt }) {
     attrs: [
       { name: "controls" },
       { name: "src", value: "./app/Audio/Pokémon_Theme_Song.mp4" },
+      { name: "autoplay" },
     ],
   });
 
