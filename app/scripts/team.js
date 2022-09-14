@@ -71,15 +71,17 @@ function handleTeam(e) {
   e.preventDefault();
   const parentElt = e.target.parentElement;
   const nameInput = promptNewTeamName();
-  elementFactory({
-    parentElt,
-    eltType: "div",
-    text: `${nameInput}`,
-    classNames: ["rounded", "teams"],
-    attrs: [
-      { name: "style", value: "padding: 100px; margin: 10px; border-radius:" },
-    ],
-  });
+  if (nameInput) {
+      elementFactory({
+        parentElt,
+        eltType: "div",
+        text: `${nameInput}`,
+        classNames: ["rounded", "teams"],
+        attrs: [
+          { name: "style", value: "padding: 100px; margin: 10px; border-radius:" },
+        ],
+      });
+  }
 }
 
 function promptNewTeamName() {
@@ -90,7 +92,6 @@ function promptNewTeamName() {
     let nameInput;
     if (teamNum) {
         nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`);
-        // TODO: clean up with while loop?
         if (nameInput != null && nameInput != "") {
             if (!keys.includes(nameInput)) {
                 localStorage.setItem(`${nameInput}`, "")
