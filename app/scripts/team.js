@@ -71,15 +71,17 @@ function handleTeam(e) {
   e.preventDefault();
   const parentElt = e.target.parentElement;
   const nameInput = promptNewTeamName();
-  elementFactory({
-    parentElt,
-    eltType: "div",
-    text: `${nameInput}`,
-    classNames: ["rounded", "teams"],
-    attrs: [
-      { name: "style", value: "padding: 100px; margin: 10px; border-radius:" },
-    ],
-  });
+  if (nameInput) {
+      elementFactory({
+        parentElt,
+        eltType: "div",
+        text: `${nameInput}`,
+        classNames: ["rounded", "teams"],
+        attrs: [
+          { name: "style", value: "padding: 100px; margin: 10px; border-radius:" },
+        ],
+      });
+  }
 }
 
 function promptNewTeamName() {
@@ -87,17 +89,26 @@ function promptNewTeamName() {
   const storage = localStorage;
   const keys = Object.keys(storage);
 
-  let nameInput;
-  if (teamNum) {
-    nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`);
-    if (nameInput != null && nameInput != "") {
-      if (!keys.includes(nameInput)) {
-        localStorage.setItem(`${nameInput}`, "");
-        localStorage.setItem("teamNum", `${teamNum}`);
-        return nameInput;
-      } else {
-        alert("That Team Name Already Exists!!!");
-      }
+    let nameInput;
+    if (teamNum) {
+        nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`);
+        if (nameInput != null && nameInput != "") {
+            if (!keys.includes(nameInput)) {
+                localStorage.setItem(`${nameInput}`, "")
+                localStorage.setItem("teamNum", `${teamNum}`)
+                return nameInput
+            } else {
+                alert("That Team Name Already Exists!!!")
+            }
+        } 
+    } else {
+        localStorage.setItem("teamNum", "1");
+        teamNum = parseInt(localStorage.getItem("teamNum"))
+        nameInput = prompt("Enter Your New Team Name", `Team 1`);
+        if (nameInput != null && nameInput != "") {
+            localStorage.setItem(`${nameInput}`, "")
+            return nameInput
+        } 
     }
   } else {
     localStorage.setItem("teamNum", "1");

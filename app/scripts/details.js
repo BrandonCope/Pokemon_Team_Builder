@@ -46,6 +46,58 @@ function getPokemon({data, parentElt}){
         ],
       })
 
+      
+      const storage  = localStorage
+      const keys = Object.keys(storage) 
+      let storageKey = [];
+      keys.forEach(key => {
+          if (key != "activePage" && key != "teamNum" && key != "length") {
+              storageKey.push(key)
+            }
+        });
+        if (storageKey.length > 0) {
+          const form = elementFactory({
+            eltType: "form",
+            parentElt: details_card,
+            attrs: [{name: "name", value: "selectForm"}]
+          })
+          const addToTeamLabel = elementFactory({
+            eltType: "label",
+            parentElt: form,
+            text: "Add to a team:"
+          })
+          const dropSelect = elementFactory({
+            eltType: "select",
+            parentElt: form,
+            attrs: [{name: "name", value: "selectInput"}]
+          })
+          const options = ["--Please Choose an option--", ...storageKey]
+          options.forEach(option => {
+            elementFactory({
+                eltType: "option",
+                parentElt: dropSelect,
+                attrs: [{name: "value", value: `${option}`}],
+                text: `${option}`
+            })
+          })
+
+          const inputSubmit = elementFactory({
+            eltType: "input",
+            parentElt: form,
+            attrs: [{name: "type", value: "submit"}],
+            text: "Submit",
+          })
+          document.forms.selectForm.addEventListener('submit', (e) => {
+              e.preventDefault()
+              const pokemonName = e.target.parentElement.children[3].innerText
+              const teamInput = document.forms.selectForm.elements.selectInput.value;
+              let team = localStorage.getItem(teamInput)
+              team += `${pokemonName},`;
+              localStorage.setItem(teamInput, team)
+          })
+      }
+
+
       const newName = elementFactory({
         eltType: "h3",
         text: `${data.name}`,
@@ -59,18 +111,21 @@ function getPokemon({data, parentElt}){
         classNames: ["pokemon_details"],
       })
 
-      const type = elementFactory({
-        eltType: "p",
-          text: `Type: ${data.type}`,
-          parentElt: section1,
-          classNames: ["Pok-type"],
-      })
+      for (let index = 0; index < data.types.length; index++) {
+        const element = data.types[index];
+        elementFactory({
+            eltType: "p",
+            text: `Type: ${element.type.name}`,
+            parentElt: section1,
+            classNames: ["Pok-type"],
+          })
+      }
 
     const weight = elementFactory({
       eltType: "p",
         text: `Weight: ${data.weight}`,
         parentElt: section1,
-        classNames: ["Poke_weight"],
+        classNames: ["Poke_weight"] ,
     })
 
     const height = elementFactory({
@@ -80,15 +135,25 @@ function getPokemon({data, parentElt}){
         classNames: ["Poke_height"],
     })
 
-    const moves = elementFactory({
-      eltType: "p",
-      text: `Moves: ${data.moves}`,
-      parentElt: section1,
-      classNames: ["Poke_move"],
+    const moveArr = []
+    for (let index = 0; index < data.moves.length; index++) {
+        const element = data.moves[index];
+        moveArr.push(element.move.name)
+    }
 
-    })
+    createMoves({parentElt: section1, moveArr})
 }
-
+// TODO: edit boldness of moves
+function createMoves({parentElt, moveArr}) {
+    elementFactory({
+     eltType: "p",
+     text: `Moves: ${moveArr.join(', ')}`,
+     parentElt,
+     classNames: ["Poke_move"],
+     attrs: [{name: "style", value: "strong"}]
+    })
+    
+}
     
     // const Button = elementFactory({
     //     eltType: "button",
