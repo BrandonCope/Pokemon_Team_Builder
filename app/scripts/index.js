@@ -9,7 +9,7 @@ const homeNav = document.querySelector("#home");
 
 document.querySelector("#home").addEventListener("click", (e) => {
   e.preventDefault();
-  mainBody.innerHTML = createHome();
+  createHome({ parentElt: mainBody });
   homeNav.classList.add("active");
   teamListNav.classList.remove("active");
   pokeListNav.classList.remove("active");
@@ -18,8 +18,7 @@ document.querySelector("#home").addEventListener("click", (e) => {
 
 document.querySelector("#pokeList").addEventListener("click", (e) => {
   e.preventDefault();
-  //createPokeList({ parentElt: mainBody });
-  mainBody.innerHTML = createPokeList();
+  createPokeList({ parentElt: mainBody });
   pokeListNav.classList.add("active");
   teamListNav.classList.remove("active");
   homeNav.classList.remove("active");
@@ -27,7 +26,7 @@ document.querySelector("#pokeList").addEventListener("click", (e) => {
 });
 
 document.querySelector("#teamList").addEventListener("click", (e) => {
-    e.preventDefault()
+  e.preventDefault()
     // mainBody.innerHTML = createTeamPage();
     createTeamPage({parentElt: mainBody})
     teamListNav.classList.add("active")
@@ -37,23 +36,24 @@ document.querySelector("#teamList").addEventListener("click", (e) => {
 })
 
 window.onload = () => {
-    const activePage = localStorage.getItem('activePage')
-    switch (activePage) {
-        case "home":
-            mainBody.innerHTML = createHome()
-            homeNav.classList.add("active")
-            break;
-        case "pokeList":
-            mainBody.innerHTML = createPokeList()
-            pokeListNav.classList.add("active")
-            break;
-        case "teamList":
+  const activePage = localStorage.getItem("activePage");
+
+  switch (activePage) {
+    case "home":
+      createHome({ parentElt: mainBody });
+      homeNav.classList.add("active");
+      break;
+    case "pokeList":
+      mainBody.innerHTML = createPokeList();
+      pokeListNav.classList.add("active");
+      break;
+   case "teamList":
             createTeamPage({parentElt: mainBody})
             teamListNav.classList.add("active")
             break;
-        default:
-            mainBody.innerHTML = createHome()
-            homeNav.classList.add("active")
-            break;
-    }
-}
+    default:
+      createHome({ parentElt: mainBody });
+      homeNav.classList.add("active");
+      break;
+  }
+};
