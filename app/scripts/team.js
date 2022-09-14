@@ -67,16 +67,21 @@ function createButton({parentElt, eventType, event, text}) {
 function handleTeam(e) {
     e.preventDefault();
     const parentElt = e.target.parentElement;
+    const nameInput = promptNewTeamName()
     console.log(parentElt)
+    console.log(nameInput)
+    createTeamContainer({parentElt, teamName: nameInput})
+}
+
+function promptNewTeamName() {
     const teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
     let nameInput;
     teamNum ? 
     (nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`),
     localStorage.setItem("teamNum", `${teamNum}`))
     : (localStorage.setItem("teamNum", "1"), nameInput = prompt("Enter Your New Team Name", `Team 1`));
-    localStorage.setItem(`${nameInput}`, "")
-    console.log(nameInput)
-    createTeamContainer({parentElt, teamName: nameInput})
+    localStorage.setItem(`${nameInput}`, "[]")
+    return nameInput
 }
 
 function createTeamContainer({parentElt, teamName}) {
