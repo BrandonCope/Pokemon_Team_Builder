@@ -2,70 +2,90 @@ import { elementFactory } from "./helper_functions.js";
 
 export function createTeamPage({parentElt}) {
     parentElt.innerHTML = ""
-    const contentDiv = document.createElement("div")
-    contentDiv.setAttribute("id", "teamList_content")
+    const contentDiv = elementFactory({
+        eltType: "div",
+        classNames: ["row", "align-items-start", "text-center"],
+    })
     createContent({parentElt: contentDiv})
     console.log(contentDiv)
     parentElt.appendChild(contentDiv)
 }
 
 function createContent({parentElt}) {
-    const teamDiv = createDiv({parentElt});
-    const detailDiv = createDiv({parentElt});
+    const teamDiv = createDiv({
+        parentElt, 
+        classNames: ["col", "row", "align-center", "rounded"],
+        attrs: [
+            {
+              name: "style",
+              value:
+                "height:95vh; width:49vw;margin:2px;overflow-y:scroll;background-color:blue;opacity:95%",
+            },
+          ],
+    });
+    
+    const detailDiv = createDiv({
+        parentElt,
+        classNames: ["col"],
+        attrs: [
+            {
+              name: "style",
+              value:
+                "border:solid 2px; height:95vh; width:49vw;margin:2px;background-color:pink;opacity:95%",
+            },
+          ],
+    });
 
-    const button = document.createElement("button")
-    console.log(button)
-    button.innerText = "Create New Team"
-    button.onclick
-    button.addEventListener("click", (e) => {
-        e.preventDefault()
-        console.log("hello world")
+    createButton({
+        parentElt: teamDiv,
+        text: "Create New Team",
+        eventType: "click",
+        event: handleTeam
     })
-    teamDiv.appendChild(button)
 }
 
-function createDiv({parentElt}) {
+function createDiv({parentElt, attrs}) {
     const div = elementFactory({
         parentElt,
         eltType: "div",
-        attrs: [{name: "style", value: "border: 3px solid white; padding: 100px"}]
+        attrs
     })
     return div;
 }
 
-function createButton({parentElt, className, eventType, event, text}) {
-    const button = elementFactory({
+function createButton({parentElt, eventType, event, text}) {
+    elementFactory({
         parentElt,
         eltType: "button",
-        classNames: ["btn", "btn-block", className],
+        classNames: ["btn", "btn-block", "btn-danger"],
         text,
         events: [{eventType, event}],
         attrs: [{name: "style", value: "margin: 3px"}]
     })
-    return button;
 }
-
-// function createButton({parentElt, text, eventType, event}) {
-//     elementFactory({
-//         parentElt,
-//         eltType: "button",
-//         text,
-//         events: [{eventType, event}],
-//     })
-// }
 
 function handleTeam(e) {
     e.preventDefault();
-    const nameInput = prompt("Enter Your New Team Name")
-    localStorage.setItem("nameInput", "Hello")
+    const parentElt = e.target.parentElement;
+    console.log(parentElt)
+    const teamNum = parseInt(localStorage.getItem("teamNum"), 10) + 1;
+    let nameInput;
+    teamNum ? 
+    (nameInput = prompt("Enter Your New Team Name", `Team ${teamNum}`),
+    localStorage.setItem("teamNum", `${teamNum}`))
+    : (localStorage.setItem("teamNum", "1"), nameInput = prompt("Enter Your New Team Name", `Team 1`));
+    localStorage.setItem(`${nameInput}`, "")
     console.log(nameInput)
+    createTeamContainer({parentElt, teamName: nameInput})
 }
 
-function editInputs(e) {
-    const editBtn = e.target
-    console.log(editBtn)
-    // const cardBody = editBtn.parentElement;
-    // const card = cardBody.parentElement;
-    // const {image, name, location, description} = promptEdits(card, cardBody);
-    // validateInputs({image, name, location, description, card, cardBody});
+function createTeamContainer({parentElt, teamName}) {
+    elementFactory({
+        parentElt,
+        eltType: "div",
+        text: `${teamName}`,
+        attrs: [
+            {name: "style", value: "border: 3px solid red; padding: 100px; margin: 10px"},
+    ]
+    })
 }
