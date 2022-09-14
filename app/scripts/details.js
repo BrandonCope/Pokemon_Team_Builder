@@ -59,12 +59,35 @@ function getPokemon({data, parentElt}){
         classNames: ["pokemon_details"],
       })
 
-      const type = elementFactory({
-        eltType: "p",
-          text: `Type: ${data.type}`,
-          parentElt: section1,
-          classNames: ["Pok-type"],
-      })
+      for (let index = 0; index < data.types.length; index++) {
+        const element = data.types[index];
+        elementFactory({
+            eltType: "p",
+            text: `Type: ${element.type.name}`,
+            parentElt: section1,
+            classNames: ["Pok-type"],
+          })
+      }
+
+    //   if (data.types.length === 1) {
+    //       const mainType = data.types[0].type.name
+    //     } else {
+    //         const mainType = data.types[0].type.name
+    //         const subType = data.types[1].type.name
+    //         elementFactory({
+    //             eltType: "p",
+    //             text: `Type: ${mainType}`,
+    //             parentElt: section1,
+    //             classNames: ["Pok-type"],
+    //           })
+    //         elementFactory({
+    //             eltType: "p",
+    //             text: `Type: ${subType}`,
+    //             parentElt: section1,
+    //             classNames: ["Pok-type"],
+    //           })
+
+        // }
 
     const weight = elementFactory({
       eltType: "p",
@@ -80,15 +103,24 @@ function getPokemon({data, parentElt}){
         classNames: ["Poke_height"],
     })
 
-    const moves = elementFactory({
-      eltType: "p",
-      text: `Moves: ${data.moves}`,
-      parentElt: section1,
-      classNames: ["Poke_move"],
+    const moveArr = []
+    for (let index = 0; index < data.moves.length; index++) {
+        const element = data.moves[index];
+        moveArr.push(element.move.name)
+    }
 
-    })
+    createMoves({parentElt: section1, moveArr})
 }
 
+function createMoves({parentElt, moveArr}) {
+    elementFactory({
+     eltType: "p",
+     text: `Moves: ${moveArr.join(' ,')}`,
+     parentElt,
+     classNames: ["Poke_move"],
+    })
+    
+}
     
     // const Button = elementFactory({
     //     eltType: "button",
