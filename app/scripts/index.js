@@ -44,7 +44,7 @@ window.onload = () => {
       homeNav.classList.add("active");
       break;
     case "pokeList":
-      mainBody.innerHTML = createPokeList();
+      createPokeList({ parentElt: mainBody });
       pokeListNav.classList.add("active");
       break;
    case "teamList":
