@@ -3,45 +3,28 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed; 
- 
+  background-attachment: fixed;
 }
-
-/* #mainTitle {
-  color: gold;
-} */
-
-#indexPage,
-#pokeList,
-#teamList {
-  margin: 20px;
-}
-
 
 #teamList_content {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 50px;
+  gap: 50px;
 }
 
-sup {
-  font-size: 8px;
-}
-/* #disclosure {
-  font-size: 10px;
-} */
-
-.box_container{
+.box_container {
   display: flex;
   align-items: center;
   flex-direction: column;
-width: auto;
+  width: auto;
   margin: 10px;
   border-width: 10px;
-    border-style: solid;
-    border-color: #33AFFF;
-    padding: 10px;
-    background-color: lightcoral;
+  border-style: solid;
+  border-color: #33afff;
+  padding: 10px;
+  background-color: lightcoral;
 }
 
 #main_body {
@@ -51,7 +34,3 @@ width: auto;
   align-items: center;
   width: auto;
 }
-
-/* #audio {
-  color: white;
-} */

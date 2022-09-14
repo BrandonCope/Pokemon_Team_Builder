@@ -1,6 +1,6 @@
 import { createPokeList } from "./allPokemonList.js";
 import { createHome } from "./home.js";
-import { createTeam } from "./team.js";
+import { createTeamPage } from "./team.js";
 
 const mainBody = document.querySelector("#main_body");
 const teamListNav = document.querySelector("#teamList");
@@ -18,7 +18,7 @@ document.querySelector("#home").addEventListener("click", (e) => {
 
 document.querySelector("#pokeList").addEventListener("click", (e) => {
   e.preventDefault();
-  mainBody.innerHTML = createPokeList();
+  createPokeList({ parentElt: mainBody });
   pokeListNav.classList.add("active");
   teamListNav.classList.remove("active");
   homeNav.classList.remove("active");
@@ -26,13 +26,14 @@ document.querySelector("#pokeList").addEventListener("click", (e) => {
 });
 
 document.querySelector("#teamList").addEventListener("click", (e) => {
-  e.preventDefault();
-  mainBody.innerHTML = createTeam();
-  teamListNav.classList.add("active");
-  homeNav.classList.remove("active");
-  pokeListNav.classList.remove("active");
-  localStorage.setItem("activePage", "teamList");
-});
+  e.preventDefault()
+    // mainBody.innerHTML = createTeamPage();
+    createTeamPage({parentElt: mainBody})
+    teamListNav.classList.add("active")
+    homeNav.classList.remove("active")
+    pokeListNav.classList.remove("active")
+    localStorage.setItem('activePage', 'teamList')
+})
 
 window.onload = () => {
   const activePage = localStorage.getItem("activePage");
@@ -46,10 +47,10 @@ window.onload = () => {
       mainBody.innerHTML = createPokeList();
       pokeListNav.classList.add("active");
       break;
-    case "teamList":
-      mainBody.innerHTML = createTeam();
-      teamListNav.classList.add("active");
-      break;
+   case "teamList":
+            createTeamPage({parentElt: mainBody})
+            teamListNav.classList.add("active")
+            break;
     default:
       createHome({ parentElt: mainBody });
       homeNav.classList.add("active");
