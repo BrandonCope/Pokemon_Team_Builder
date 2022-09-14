@@ -8,22 +8,23 @@ const pokeListNav = document.querySelector("#pokeList");
 const homeNav = document.querySelector("#home");
 
 document.querySelector("#home").addEventListener("click", (e) => {
-    e.preventDefault()
-    mainBody.innerHTML = createHome();
-    homeNav.classList.add("active")
-    teamListNav.classList.remove("active")
-    pokeListNav.classList.remove("active")
-    localStorage.setItem('activePage', 'home')
+  e.preventDefault();
+  mainBody.innerHTML = createHome();
+  homeNav.classList.add("active");
+  teamListNav.classList.remove("active");
+  pokeListNav.classList.remove("active");
+  localStorage.setItem("activePage", "home");
 });
 
 document.querySelector("#pokeList").addEventListener("click", (e) => {
-    e.preventDefault()
-    mainBody.innerHTML = createPokeList();
-    pokeListNav.classList.add("active")
-    teamListNav.classList.remove("active")
-    homeNav.classList.remove("active")
-    localStorage.setItem('activePage', 'pokeList')
-})
+  e.preventDefault();
+  //createPokeList({ parentElt: mainBody });
+  mainBody.innerHTML = createPokeList();
+  pokeListNav.classList.add("active");
+  teamListNav.classList.remove("active");
+  homeNav.classList.remove("active");
+  localStorage.setItem("activePage", "pokeList");
+});
 
 document.querySelector("#teamList").addEventListener("click", (e) => {
     e.preventDefault()
