@@ -1,15 +1,14 @@
 import { elementFactory } from "./helper_functions.js";
+import { pokeDetail } from "./details.js";
 
 const pokeId = Array(151);
 
 export function createPokeList({parentElt}) {
-  parentElt.innerHTML = "";
-
+  parentElt.innerHTML = ""
   const element = elementFactory({
     eltType: "div",
     classNames: ["row", "align-items-start", "text-center"],
   });
-
   const listCtr = elementFactory({
     eltType: "div",
     classNames: ["col", "row", "align-center", "rounded"],
@@ -44,7 +43,6 @@ export function createPokeList({parentElt}) {
       eltType: "img",
       parentElt: listCtr,
       classNames: ["rounded"],
-      text: `This is card #${index}`,
       attrs: [
         {
           name: "style",
@@ -55,7 +53,12 @@ export function createPokeList({parentElt}) {
           name: "src",
           value: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index}.png`,
         },
+        {
+          name: "id",
+          value: index,
+        }
       ],
+      events: [{eventType: "click", event: pokeDetail}]
     });
     /* 
     fetch(`https://pokeapi.co/api/v2/pokemon/${index}`)

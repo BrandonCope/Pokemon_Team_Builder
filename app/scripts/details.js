@@ -1,25 +1,26 @@
 import { elementFactory } from "./helper_functions.js";
 
 
-document.getElementById("input_id").addEventListener("click", () => {
-  const apiUrl = "";
+export const pokeDetail = async (e) =>  {
+    e.preventDefault()
+    const pokemon = e.target;
+    const detailsContainer = pokemon.parentElement.nextElementSibling
+    detailsContainer.innerHTML = ""
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
 
-  debugger;
-  fetch(apiUrl)
-  .then(function (response) {
-      return response.json();
-  })
-  .then(data => 
-      getPokemon(data.pokemon));
-  });
-  
+    // debugger;
+    await fetch(apiUrl).then((response) => (
+        response.json()
+    ))
+    .then(data => (
+        getPokemon({data, parentElt: detailsContainer}))
+    );  
+}
 
-
-function getPokemon(){
-  
-    const element = elementFactory({
+function getPokemon({data, parentElt}){
+    const details_card = elementFactory({
         eltType: "div",
-        parentElt: card_container,
+        parentElt: parentElt,
         classNames: ["details_card", "align-center", "rounded"],
        
       });
@@ -32,8 +33,6 @@ function getPokemon(){
     
       })
      
-      
-      
       const img = elementFactory({
         parentElt: details_card,
         eltType: "img", 
@@ -42,7 +41,7 @@ function getPokemon(){
           { name: "alt", value: `${data.name}` },
           {
             name: "src",
-            value: "`${data.pokemon.sprites.other.dream_world.front_default}`",
+            value: `${data.sprites.other.dream_world.front_default}`,
           },
         ],
       })
@@ -56,50 +55,48 @@ function getPokemon(){
     
       const section1 = elementFactory({
         eltType: "section",
-        parentElt: "div",
+        parentElt: details_card,
         classNames: ["pokemon_details"],
       })
 
       const type = elementFactory({
         eltType: "p",
-          text: "Type: `${data.type}`",
+          text: `Type: ${data.type}`,
           parentElt: section1,
           classNames: ["Pok-type"],
       })
 
-
     const weight = elementFactory({
       eltType: "p",
-        text: "Weight: `${data.weight}`",
+        text: `Weight: ${data.weight}`,
         parentElt: section1,
         classNames: ["Poke_weight"],
     })
 
     const height = elementFactory({
       eltType: "p",
-        text: "Height: `${data.height}`",
+        text: `Height: ${data.height}`,
         parentElt: section1,
         classNames: ["Poke_height"],
     })
 
     const moves = elementFactory({
       eltType: "p",
-      text: "Moves: `${data.moves}`",
+      text: `Moves: ${data.moves}`,
       parentElt: section1,
       classNames: ["Poke_move"],
 
     })
-
 }
 
     
-    const Button = elementFactory({
-        eltType: "button",
-        text: "ADD TO TEAM ",
-        classNames: ["btn", "btn-primary"],
-        parentElt: cardBody,
-        eventListener: {eventType: "click", func: func},
-      });
+    // const Button = elementFactory({
+    //     eltType: "button",
+    //     text: "ADD TO TEAM ",
+    //     classNames: ["btn", "btn-primary"],
+    //     parentElt: cardBody,
+    //     eventListener: {eventType: "click", func: func},
+    //   });
       
 
 
