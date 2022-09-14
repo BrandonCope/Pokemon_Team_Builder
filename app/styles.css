@@ -17,14 +17,14 @@ body {
 .box_container {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  width: auto;
+  width: 700px;
   margin: 10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: #33afff;
   padding: 10px;
-  background-color: lightcoral;
+  background-color: white;
+  border: 20px solid #33afff;
+  border-image: url("./images/chat.png") 50;
 }
 
 #main_body {
@@ -33,4 +33,11 @@ body {
   flex-direction: column;
   align-items: center;
   width: auto;
+}
+
+.teams {
+  background-image: url("./images/Box_Forest.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
