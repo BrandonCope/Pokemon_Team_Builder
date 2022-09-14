@@ -2,11 +2,14 @@ import { elementFactory } from "./helper_functions.js";
 
 const pokeId = Array(151);
 
-export function createPokeList() {
+export function createPokeList({parentElt}) {
+  parentElt.innerHTML = "";
+
   const element = elementFactory({
     eltType: "div",
     classNames: ["row", "align-items-start", "text-center"],
   });
+  
   const listCtr = elementFactory({
     eltType: "div",
     classNames: ["col", "row", "align-center", "rounded"],
@@ -62,5 +65,5 @@ export function createPokeList() {
       }); */
   }
 
-  return element.outerHTML;
+  parentElt.appendChild(element);
 }
