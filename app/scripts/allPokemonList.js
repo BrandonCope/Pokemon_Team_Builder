@@ -9,7 +9,7 @@ export function createPokeList({parentElt}) {
     eltType: "div",
     classNames: ["row", "align-items-start", "text-center"],
   });
-  
+
   const listCtr = elementFactory({
     eltType: "div",
     classNames: ["col", "row", "align-center", "rounded"],
