@@ -27,9 +27,11 @@ function createContent({ parentElt }) {
     ],
   });
 
-  const detailDiv = createDiv({
+  const detailDiv = elementFactory({
     parentElt,
+    eltType: "div",
     classNames: ["col"],
+    text: "Who's That Pokemon??? \n  \n Click An Image To Find Out!!!",
     attrs: [
       {
         name: "style",
@@ -125,8 +127,14 @@ function createTeamContainer({ parentElt }) {
 }
 
 export function createPokeTeam({parentElt, pokemon}) {
- 
-
+  const allPokes = elementFactory({
+    eltType: "div",
+    parentElt,
+    attrs: [{
+      name: "style",
+      value: "display: flex;flex-wrap:wrap;gap:5px;justify-content:center"
+    }]
+  })
   pokemon.forEach(async poke => {
     if(poke) {
       const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`)
@@ -134,10 +142,9 @@ export function createPokeTeam({parentElt, pokemon}) {
 
       const pokeDiv = elementFactory({
         eltType: "div",
-        parentElt: parentElt,
-        classNames: ["pokeDiv"]
+        parentElt: allPokes,
+        classNames: ["pokeDiv"],
       })
-
       const pokeImg = elementFactory({
         eltType: "img",
         parentElt: pokeDiv,
@@ -164,11 +171,12 @@ export function createPokeTeam({parentElt, pokemon}) {
         events: [{eventType: "click", event: pokeDetail}]
       });
       elementFactory({
-        eltType: "button",
+        eltType: "a",
         parentElt: pokeDiv,
         text: "x",
+        classNames: ["btn", "btn-block", "btn-danger", "bottom"],
         events: [{eventType: "click", event: handleRemovePokeIMG}],
-        attrs: [{name: "style", value: "z-index:1"}]
+        attrs: [{name: "style", value: "height: 25%;"}]
       })
     }
   });
@@ -187,17 +195,25 @@ function createTeamDiv({parentElt, key}) {
       },
     ],
   });
-  elementFactory({
+  const teamHeader = elementFactory({
     parentElt: teamDiv,
+    eltType: "div",
+    attrs: [
+      {name: "style", value: "display:flex;justify-content:center;gap:5px;margin: 10px"}
+    ]
+  })
+  elementFactory({
+    parentElt: teamHeader,
     eltType: "p",
     text: `${key}`,
   })
-     elementFactory({
-        eltType: "button",
-        parentElt: teamDiv,
-        text: "x",
-        events: [{eventType: "click", event: handleRemoveTeam}]
-      })
+  elementFactory({
+      eltType: "button",
+      parentElt: teamHeader,
+      text: "x",
+      classNames: ["btn", "btn-block", "btn-danger"],
+      events: [{eventType: "click", event: handleRemoveTeam}]
+    })
       
 
   return teamDiv
