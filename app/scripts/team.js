@@ -220,8 +220,8 @@ function createTeamDiv({parentElt, key}) {
 }
 
 function handleRemoveTeam(e) {
-  const removeElement = e.target.parentElement
-  const removeFromTeamStorage = removeElement.innerText.split("\n")
+  const removeElement = e.target.parentElement.parentElement
+  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n")
   console.log(removeFromTeamStorage)
   const teamName = removeFromTeamStorage[0]
   localStorage.removeItem(teamName)
@@ -236,7 +236,7 @@ function handleRemoveTeam(e) {
 function handleRemovePokeIMG(e) {
   const removeElement = e.target.parentElement
   const pokemon = e.target.parentElement.firstChild.name
-  const removeFromTeamStorage = removeElement.parentElement.innerText.split("\n")
+  const removeFromTeamStorage = removeElement.parentElement.parentElement.innerText.split("\n")
   const teamName = removeFromTeamStorage[0]
   const team = localStorage.getItem(teamName)
   const splitTeam =team.split(',')
