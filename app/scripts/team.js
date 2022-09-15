@@ -10,33 +10,33 @@ export function createTeamPage({ parentElt }) {
   });
   createContent({ parentElt: contentDiv });
 
-  const audio = elementFactory({
-    eltType: "figure",
-    parentElt: contentDiv,
-    attrs: [
-      {
-        name: "style",
-        value: "display:flex;flex-direction:column;align-items:center",
-      },
-    ],
-  });
+  // const audio = elementFactory({
+  //   eltType: "figure",
+  //   parentElt: contentDiv,
+  //   attrs: [
+  //     {
+  //       name: "style",
+  //       value: "display:flex;flex-direction:column;align-items:center",
+  //     },
+  //   ],
+  // });
 
-  const caption = elementFactory({
-    eltType: "figcaption",
-    parentElt: audio,
-    text: `Pokémon Red Battle Music(TM)`,
-    attrs: [{ name: "style", value: "color: white;" }],
-  });
+  // const caption = elementFactory({
+  //   eltType: "figcaption",
+  //   parentElt: audio,
+  //   text: `Pokémon Red Battle Music(TM)`,
+  //   attrs: [{ name: "style", value: "color: white;" }],
+  // });
 
-  const sounds = elementFactory({
-    eltType: "audio",
-    parentElt: audio,
-    attrs: [
-      { name: "controls" },
-      { name: "autoplay" },
-      { name: "src", value: "./app/Audio/Battle.mp4" },
-    ],
-  });
+  // const sounds = elementFactory({
+  //   eltType: "audio",
+  //   parentElt: audio,
+  //   attrs: [
+  //     { name: "controls" },
+  //     { name: "autoplay" },
+  //     { name: "src", value: "./app/Audio/Battle.mp4" },
+  //   ],
+  // });
 
   parentElt.appendChild(contentDiv);
 }
@@ -76,6 +76,34 @@ function createContent({ parentElt }) {
   });
 
   createTeamContainer({ parentElt: teamDiv });
+
+    // const audio = elementFactory({
+  //   eltType: "figure",
+  //   parentElt: contentDiv,
+  //   attrs: [
+  //     {
+  //       name: "style",
+  //       value: "display:flex;flex-direction:column;align-items:center",
+  //     },
+  //   ],
+  // });
+
+  // const caption = elementFactory({
+  //   eltType: "figcaption",
+  //   parentElt: audio,
+  //   text: `Pokémon Red Battle Music(TM)`,
+  //   attrs: [{ name: "style", value: "color: white;" }],
+  // });
+
+  // const sounds = elementFactory({
+  //   eltType: "audio",
+  //   parentElt: audio,
+  //   attrs: [
+  //     { name: "controls" },
+  //     { name: "autoplay" },
+  //     { name: "src", value: "./app/Audio/Battle.mp4" },
+  //   ],
+  // });
 }
 
 function createDiv({ parentElt, attrs }) {
@@ -285,8 +313,8 @@ function handleEditTeam(e) {
 }
 
 function handleRemoveTeam(e) {
-  const removeElement = e.target.parentElement;
-  const removeFromTeamStorage = removeElement.innerText.split("\n");
+  const removeElement = e.target.parentElement.parentElement;
+  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n");
   console.log(removeFromTeamStorage);
   const teamName = removeFromTeamStorage[0];
   localStorage.removeItem(teamName);
@@ -302,7 +330,7 @@ function handleRemovePokeIMG(e) {
   const removeElement = e.target.parentElement;
   const pokemon = e.target.parentElement.firstChild.name;
   const removeFromTeamStorage =
-    removeElement.parentElement.innerText.split("\n");
+    removeElement.parentElement.parentElement.innerText.split("\n");
   const teamName = removeFromTeamStorage[0];
   const team = localStorage.getItem(teamName);
   const splitTeam = team.split(",");
