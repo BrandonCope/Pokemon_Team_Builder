@@ -24,11 +24,11 @@ export function createPokeList({parentElt}) {
   });
 
   // THIS IS A PLACEHOLDER FOR THE DETAILS EVENT LISTENER
-  const detailCtr = elementFactory({
+  elementFactory({
     eltType: "div",
     classNames: ["col"],
     parentElt: element,
-    text: "This will be the details container",
+    text: "Who's That Pokemon??? \n  \n Click An Image To Find Out!!!",
     attrs: [
       {
         name: "style",

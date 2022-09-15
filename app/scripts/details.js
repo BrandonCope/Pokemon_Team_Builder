@@ -23,6 +23,9 @@ function getPokemon({data, parentElt}){
         eltType: "div",
         parentElt: parentElt,
         classNames: ["details_card", "align-center", "rounded"],
+        attrs: [{
+          name: "style", value: "display: flex; flex-direction: column; align-items: center; "
+         }]
       });
     
       const heading = elementFactory({
@@ -42,6 +45,7 @@ function getPokemon({data, parentElt}){
             name: "src",
             value: `${data.sprites.other.dream_world.front_default}`,
           },
+          {name: "style", value:"max-height:200px ; max-width:200px ;"},
         ],
       })
 
@@ -85,9 +89,10 @@ function getPokemon({data, parentElt}){
             parentElt: form,
             attrs: [{name: "type", value: "submit"}],
             text: "Submit",
+            classNames: ["btn","btn-block", "btn-primary"],
           })
           document.forms.selectForm.addEventListener('submit', (e) => {
-              const pokemonName = e.target.parentElement.children[3].innerText
+              const pokemonName = e.target.parentElement.children[3].id
               const teamInput = document.forms.selectForm.elements.selectInput.value;
               let team = localStorage.getItem(teamInput)
               const pokeArr = team.split(",")
@@ -104,9 +109,10 @@ function getPokemon({data, parentElt}){
 
       const newName = elementFactory({
         eltType: "h3",
-        text: `${data.name}`,
+        text: `${data.name.slice(0,1).toUpperCase()}${data.name.slice(1)}`,
         parentElt: details_card,
         classNames: ["Poke_Name"],
+        attrs: [{name: "id", value: `${data.name}`}]
     })
     
       const section1 = elementFactory({
@@ -119,7 +125,7 @@ function getPokemon({data, parentElt}){
         const element = data.types[index];
         elementFactory({
             eltType: "p",
-            text: `Type: ${element.type.name}`,
+            text: `Type: ${element.type.name.slice(0,1).toUpperCase()}${element.type.name.slice(1)}`,
             parentElt: section1,
             classNames: ["Pok-type"],
           })
