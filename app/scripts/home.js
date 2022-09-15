@@ -50,7 +50,12 @@ export function createHome({ parentElt }) {
   const audio = elementFactory({
     eltType: "figure",
     parentElt: homepage,
-    attrs: [{name: "style", value: "display:flex;flex-direction:column;align-items:center"}]
+    attrs: [
+      {
+        name: "style",
+        value: "display:flex;flex-direction:column;align-items:center",
+      },
+    ],
   });
   const caption = elementFactory({
     eltType: "figcaption",
@@ -65,7 +70,6 @@ export function createHome({ parentElt }) {
       { name: "controls" },
       { name: "autoplay" },
       { name: "src", value: "./app/Audio/Pokémon_Theme_Song.mp4" },
-      { name: "autoplay" },
     ],
   });
 
