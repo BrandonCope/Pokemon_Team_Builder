@@ -10,34 +10,6 @@ export function createTeamPage({ parentElt }) {
   });
   createContent({ parentElt: contentDiv });
 
-  const audio = elementFactory({
-    eltType: "figure",
-    parentElt: contentDiv,
-    attrs: [
-      {
-        name: "style",
-        value: "display:flex;flex-direction:column;align-items:center",
-      },
-    ],
-  });
-
-  const caption = elementFactory({
-    eltType: "figcaption",
-    parentElt: audio,
-    text: `Pokémon Red Battle Music(TM)`,
-    attrs: [{ name: "style", value: "color: white;" }],
-  });
-
-  const sounds = elementFactory({
-    eltType: "audio",
-    parentElt: audio,
-    attrs: [
-      { name: "controls" },
-      { name: "autoplay" },
-      { name: "src", value: "./app/Audio/Battle.mp4" },
-    ],
-  });
-
   parentElt.appendChild(contentDiv);
 }
 
@@ -136,7 +108,6 @@ function promptNewTeamName() {
 }
 
 function createTeamContainer({ parentElt }) {
-  parentElt.innerHTML = ""
   const storage = localStorage;
   for (const key in storage) {
     if (Object.hasOwnProperty.call(storage, key)) {
@@ -144,7 +115,7 @@ function createTeamContainer({ parentElt }) {
       const pokemon = element.split(",");
       if (key != "activePage" && key != "teamNum" && key != "length") {
         const teamDiv = createTeamDiv({ parentElt, key });
-
+        
         createPokeTeam({ parentElt: teamDiv, pokemon });
       }
     }
@@ -240,13 +211,13 @@ function createTeamDiv({ parentElt, key }) {
     eltType: "p",
     text: `${key}`,
   });
-  elementFactory({
-    eltType: "button",
-    parentElt: teamHeader,
-    text: "edit",
-    classNames: ["btn", "btn-block", "btn-warning"],
-    events: [{eventType: "click", event: handleEditTeam}]
-  })
+  // elementFactory({
+  //   eltType: "button",
+  //   parentElt: teamHeader,
+  //   text: "edit",
+  //   classNames: ["btn", "btn-block", "btn-warning"],
+  //   events: [{eventType: "click", event: handleEditTeam}]
+  // })
   elementFactory({
       eltType: "button",
       parentElt: teamHeader,
@@ -257,41 +228,38 @@ function createTeamDiv({ parentElt, key }) {
   return teamDiv;
 }
 
-function handleEditTeam(e) {
-  const editElement = e.target.parentElement
-  const editToTeamStorage = editElement.innerText.split("\n")
-  const teamName = editToTeamStorage[0]
-  const pokeTeam = localStorage.getItem(teamName)
+// function handleEditTeam(e) {
+//   const editElement = e.target.parentElement
+//   const editToTeamStorage = editElement.innerText.split("\n")
+//   const teamName = editToTeamStorage[0]
+//   const pokeTeam = localStorage.getItem(teamName)
 
-  let teamNum = parseInt(localStorage.getItem("teamNum"), 10);
-  const storage = localStorage;
-  const keys = Object.keys(storage)
+//   let teamNum = parseInt(localStorage.getItem("teamNum"), 10);
+//   const storage = localStorage;
+//   const keys = Object.keys(storage)
   
-  let nameInput;
-  if (teamNum) {
-    nameInput = prompt("Enter Your New Team Name", `${teamName}`);
-    if (nameInput != null && nameInput != "") {
-      if (!keys.includes(nameInput)) {
-              localStorage.removeItem(teamName)
-              localStorage.setItem(`${nameInput}`,`${pokeTeam}`)
-              localStorage.setItem("teamNum", `${teamNum}`)
-              location.reload()
-              return nameInput
-          } else {
-              alert("That Team Name Already Exists!!!")
-          }
-      } 
-  } 
-}
+//   let nameInput;
+//   if (teamNum) {
+//     nameInput = prompt("Enter Your New Team Name", `${teamName}`);
+//     if (nameInput != null && nameInput != "") {
+//       if (!keys.includes(nameInput)) {
+//               localStorage.removeItem(teamName)
+//               localStorage.setItem(`${nameInput}`,`${pokeTeam}`)
+//               localStorage.setItem("teamNum", `${teamNum}`)
+//               location.reload()
+//               return nameInput
+//           } else {
+//               alert("That Team Name Already Exists!!!")
+//           }
+//       } 
+//   } 
+// }
 
 function handleRemoveTeam(e) {
-
-  const removeElement = e.target.parentElement.parentElement
-  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n")
-  console.log(removeFromTeamStorage)
-  const teamName = removeFromTeamStorage[0]
-  localStorage.removeItem(teamName)
-
+  const removeElement = e.target.parentElement.parentElement;
+  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n");
+  const teamName = removeFromTeamStorage[0];
+  localStorage.removeItem(teamName);
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
@@ -301,19 +269,16 @@ function handleRemoveTeam(e) {
 }
 
 function handleRemovePokeIMG(e) {
-  const removeElement = e.target.parentElement
-  const pokemon = e.target.parentElement.firstChild.name
-  const removeFromTeamStorage = removeElement.parentElement.parentElement.innerText.split("\n")
-  const teamName = removeFromTeamStorage[0]
-  const team = localStorage.getItem(teamName)
-  const splitTeam =team.split(',')
-  console.log("splitTeam: ", splitTeam)
-  const pokeIndex = splitTeam.lastIndexOf(pokemon)
-  console.log("pokeIndex: ", pokeIndex)
-  splitTeam.splice(pokeIndex, 1)
-  const filteredNewTeam = splitTeam.filter(poke => poke?poke:false)
-  console.log("filteredNewTeam: ", filteredNewTeam)
-
+  const removeElement = e.target.parentElement;
+  const pokemon = e.target.parentElement.firstChild.name;
+  const removeFromTeamStorage =
+    removeElement.parentElement.parentElement.innerText.split("\n");
+  const teamName = removeFromTeamStorage[0];
+  const team = localStorage.getItem(teamName);
+  const splitTeam = team.split(",");
+  const pokeIndex = splitTeam.lastIndexOf(pokemon);
+  splitTeam.splice(pokeIndex, 1);
+  const filteredNewTeam = splitTeam.filter((poke) => (poke ? poke : false));
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
