@@ -4,7 +4,8 @@ import { elementFactory } from "./helper_functions.js";
 export const pokeDetail = async (e) =>  {
     e.preventDefault()
     const pokemon = e.target;
-    const detailsContainer = pokemon.parentElement.nextElementSibling
+    const detailsContainer = document.querySelector("#list_content").children[1];
+    // const detailsContainer = pokemon.parentElement.nextElementSibling
     detailsContainer.innerHTML = ""
     const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
 
@@ -22,7 +23,6 @@ function getPokemon({data, parentElt}){
         eltType: "div",
         parentElt: parentElt,
         classNames: ["details_card", "align-center", "rounded"],
-       
       });
     
       const heading = elementFactory({
@@ -30,7 +30,6 @@ function getPokemon({data, parentElt}){
         text: "Pokemon Details",
         parentElt: details_card,
         classNames: ["card_Title"],
-    
       })
      
       const img = elementFactory({
@@ -88,12 +87,17 @@ function getPokemon({data, parentElt}){
             text: "Submit",
           })
           document.forms.selectForm.addEventListener('submit', (e) => {
-              e.preventDefault()
               const pokemonName = e.target.parentElement.children[3].innerText
               const teamInput = document.forms.selectForm.elements.selectInput.value;
               let team = localStorage.getItem(teamInput)
-              team += `${pokemonName},`;
-              localStorage.setItem(teamInput, team)
+              const pokeArr = team.split(",")
+              if (pokeArr.length < 7) {
+                team += `${pokemonName},`;
+                localStorage.setItem(teamInput, team)
+              } else {
+                e.preventDefault()
+                alert("Cannot Add Pokemon, this team is full!")
+              }
           })
       }
 
