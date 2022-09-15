@@ -19,6 +19,15 @@ function setEvent(event, newElt) {
     newElt.addEventListener(type, func);
 }
 
+function handleRemove(e) {
+    const removeElement = e.target.parentElement.parentElement;
+    while (removeElement.firstChild) {
+        removeElement.firstChild.remove();
+    }
+    removeElement.remove();
+}
+
 export {
-    elementFactory
+    elementFactory,
+    handleRemove
 }

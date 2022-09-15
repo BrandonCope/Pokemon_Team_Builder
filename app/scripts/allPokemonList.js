@@ -8,6 +8,7 @@ export function createPokeList({parentElt}) {
   const element = elementFactory({
     eltType: "div",
     classNames: ["row", "align-items-start", "text-center"],
+    attrs: [{name: "id", value: "list_content"}]
   });
   const listCtr = elementFactory({
     eltType: "div",
@@ -32,7 +33,7 @@ export function createPokeList({parentElt}) {
       {
         name: "style",
         value:
-          "border:solid 2px; height:95vh; width:49vw;margin:2px;background-color:pink;opacity:95%",
+          "overflow-y:scroll;border:solid 2px; height:95vh; width:49vw;margin:2px;background-color:pink;opacity:95%",
       },
     ],
   });

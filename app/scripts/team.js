@@ -1,14 +1,16 @@
-import { elementFactory } from "./helper_functions.js";
+import { pokeDetail } from "./details.js";
+import { elementFactory, handleRemove } from "./helper_functions.js";
 
 export function createTeamPage({ parentElt }) {
   parentElt.innerHTML = "";
   const contentDiv = elementFactory({
     eltType: "div",
     classNames: ["row", "align-items-start", "text-center"],
+    attrs: [{name: "id", value: "list_content"}]
   });
   createContent({ parentElt: contentDiv });
 
-  console.log(contentDiv);
+
   parentElt.appendChild(contentDiv);
 }
 
@@ -32,7 +34,7 @@ function createContent({ parentElt }) {
       {
         name: "style",
         value:
-          "border:solid 2px; height:95vh; width:49vw;margin:2px;background-color:pink;opacity:95%",
+          "overflow-y:scroll;border:solid 2px; height:95vh; width:49vw;margin:2px;background-color:pink;opacity:95%",
       },
     ],
   });
@@ -72,15 +74,7 @@ function handleTeam(e) {
   const parentElt = e.target.parentElement;
   const nameInput = promptNewTeamName();
   if (nameInput) {
-      elementFactory({
-        parentElt,
-        eltType: "div",
-        text: `${nameInput}`,
-        classNames: ["rounded", "teams"],
-        attrs: [
-          { name: "style", value: "padding: 100px; margin: 10px; border-radius:" },
-        ],
-      });
+      createTeamDiv({parentElt, key: nameInput})
   }
 }
 
@@ -114,26 +108,131 @@ function promptNewTeamName() {
 
 function createTeamContainer({ parentElt }) {
   const storage = localStorage;
-  console.log(storage);
   for (const key in storage) {
     if (Object.hasOwnProperty.call(storage, key)) {
       const element = storage[key];
-      console.log(element);
+      const pokemon = element.split(",")
       if (key != "activePage" && key != "teamNum" && key != "length") {
-        elementFactory({
-          parentElt,
-          eltType: "div",
-          text: `${key}`,
-          classNames: ["rounded", "teams"],
-          attrs: [
-            {
-              name: "style",
-              value:
-                "padding: 100px; margin: 10px; background-color: lightblue; border-radius:",
-            },
-          ],
-        });
+       const teamDiv = createTeamDiv({parentElt, key})
+
+       createPokeTeam({parentElt: teamDiv, pokemon})
+    
+
+         
+        }
       }
-    }
   }
+}
+
+export function createPokeTeam({parentElt, pokemon}) {
+ 
+
+  pokemon.forEach(async poke => {
+    if(poke) {
+      const pokeData = await fetch(`https://pokeapi.co/api/v2/pokemon/${poke}`)
+      .then((response) => (response.json())).then((data) => (data)) 
+
+      const pokeDiv = elementFactory({
+        eltType: "div",
+        parentElt: parentElt,
+        classNames: ["pokeDiv"]
+      })
+
+      const pokeImg = elementFactory({
+        eltType: "img",
+        parentElt: pokeDiv,
+        classNames: ["rounded"],
+        attrs: [
+          {
+            name: "style",
+            value:
+              "border:solid black 1px; height:150px;width:150px;background-color:lightblue;text-color:white;margin:1px",
+          },
+          {
+            name: "src",
+            value: `${pokeData.sprites.front_default}`,
+          },
+          {
+            name: "id",
+            value: `${pokeData.id}`,
+          },
+          {
+            name: "name",
+            value: `${pokeData.name}`
+          }
+        ],
+        events: [{eventType: "click", event: pokeDetail}]
+      });
+      elementFactory({
+        eltType: "button",
+        parentElt: pokeDiv,
+        text: "x",
+        events: [{eventType: "click", event: handleRemovePokeIMG}],
+        attrs: [{name: "style", value: "z-index:1"}]
+      })
+    }
+  });
+}
+
+function createTeamDiv({parentElt, key}) {
+  const teamDiv = elementFactory({
+    parentElt,
+    eltType: "div",
+    classNames: ["rounded", "teams"],
+    attrs: [
+      {
+        name: "style",
+        value:
+          "padding: 100px; margin: 10px; background-color: lightblue; border-radius:",
+      },
+    ],
+  });
+  elementFactory({
+    parentElt: teamDiv,
+    eltType: "p",
+    text: `${key}`,
+  })
+     elementFactory({
+        eltType: "button",
+        parentElt: teamDiv,
+        text: "x",
+        events: [{eventType: "click", event: handleRemoveTeam}]
+      })
+      
+
+  return teamDiv
+}
+
+function handleRemoveTeam(e) {
+  const removeElement = e.target.parentElement
+  const removeFromTeamStorage = removeElement.innerText.split("\n")
+  console.log(removeFromTeamStorage)
+  const teamName = removeFromTeamStorage[0]
+  localStorage.removeItem(teamName)
+  while (removeElement.firstChild) {
+    removeElement.firstChild.remove();
+  }
+  removeElement.remove();
+  let teamNum = localStorage.getItem("teamNum") - 1;
+  localStorage.setItem("teamNum", teamNum)
+}
+
+function handleRemovePokeIMG(e) {
+  const removeElement = e.target.parentElement
+  const pokemon = e.target.parentElement.firstChild.name
+  const removeFromTeamStorage = removeElement.parentElement.innerText.split("\n")
+  const teamName = removeFromTeamStorage[0]
+  const team = localStorage.getItem(teamName)
+  const splitTeam =team.split(',')
+  console.log("splitTeam: ", splitTeam)
+  const pokeIndex = splitTeam.lastIndexOf(pokemon)
+  console.log("pokeIndex: ", pokeIndex)
+  splitTeam.splice(pokeIndex, 1)
+  const filteredNewTeam = splitTeam.filter(poke => poke?poke:false)
+  console.log("filteredNewTeam: ", filteredNewTeam)
+  while (removeElement.firstChild) {
+    removeElement.firstChild.remove();
+  }
+  removeElement.remove();
+localStorage.setItem(teamName, `${filteredNewTeam},`)
 }
