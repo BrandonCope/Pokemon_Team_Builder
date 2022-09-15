@@ -313,11 +313,21 @@ function handleEditTeam(e) {
 }
 
 function handleRemoveTeam(e) {
+<<<<<<< HEAD
   const removeElement = e.target.parentElement.parentElement;
   const removeFromTeamStorage = e.target.parentElement.innerText.split("\n");
   console.log(removeFromTeamStorage);
   const teamName = removeFromTeamStorage[0];
   localStorage.removeItem(teamName);
+=======
+
+  const removeElement = e.target.parentElement.parentElement
+  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n")
+  console.log(removeFromTeamStorage)
+  const teamName = removeFromTeamStorage[0]
+  localStorage.removeItem(teamName)
+
+>>>>>>> 09219bc41a3c27c3a4115f0d4b528fedc40a3d5e
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
@@ -327,6 +337,7 @@ function handleRemoveTeam(e) {
 }
 
 function handleRemovePokeIMG(e) {
+<<<<<<< HEAD
   const removeElement = e.target.parentElement;
   const pokemon = e.target.parentElement.firstChild.name;
   const removeFromTeamStorage =
@@ -340,6 +351,21 @@ function handleRemovePokeIMG(e) {
   splitTeam.splice(pokeIndex, 1);
   const filteredNewTeam = splitTeam.filter((poke) => (poke ? poke : false));
   console.log("filteredNewTeam: ", filteredNewTeam);
+=======
+  const removeElement = e.target.parentElement
+  const pokemon = e.target.parentElement.firstChild.name
+  const removeFromTeamStorage = removeElement.parentElement.parentElement.innerText.split("\n")
+  const teamName = removeFromTeamStorage[0]
+  const team = localStorage.getItem(teamName)
+  const splitTeam =team.split(',')
+  console.log("splitTeam: ", splitTeam)
+  const pokeIndex = splitTeam.lastIndexOf(pokemon)
+  console.log("pokeIndex: ", pokeIndex)
+  splitTeam.splice(pokeIndex, 1)
+  const filteredNewTeam = splitTeam.filter(poke => poke?poke:false)
+  console.log("filteredNewTeam: ", filteredNewTeam)
+
+>>>>>>> 09219bc41a3c27c3a4115f0d4b528fedc40a3d5e
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
