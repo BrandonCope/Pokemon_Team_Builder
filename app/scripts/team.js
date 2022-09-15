@@ -285,11 +285,13 @@ function handleEditTeam(e) {
 }
 
 function handleRemoveTeam(e) {
-  const removeElement = e.target.parentElement;
-  const removeFromTeamStorage = removeElement.innerText.split("\n");
-  console.log(removeFromTeamStorage);
-  const teamName = removeFromTeamStorage[0];
-  localStorage.removeItem(teamName);
+
+  const removeElement = e.target.parentElement.parentElement
+  const removeFromTeamStorage = e.target.parentElement.innerText.split("\n")
+  console.log(removeFromTeamStorage)
+  const teamName = removeFromTeamStorage[0]
+  localStorage.removeItem(teamName)
+
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
@@ -299,19 +301,19 @@ function handleRemoveTeam(e) {
 }
 
 function handleRemovePokeIMG(e) {
-  const removeElement = e.target.parentElement;
-  const pokemon = e.target.parentElement.firstChild.name;
-  const removeFromTeamStorage =
-    removeElement.parentElement.innerText.split("\n");
-  const teamName = removeFromTeamStorage[0];
-  const team = localStorage.getItem(teamName);
-  const splitTeam = team.split(",");
-  console.log("splitTeam: ", splitTeam);
-  const pokeIndex = splitTeam.lastIndexOf(pokemon);
-  console.log("pokeIndex: ", pokeIndex);
-  splitTeam.splice(pokeIndex, 1);
-  const filteredNewTeam = splitTeam.filter((poke) => (poke ? poke : false));
-  console.log("filteredNewTeam: ", filteredNewTeam);
+  const removeElement = e.target.parentElement
+  const pokemon = e.target.parentElement.firstChild.name
+  const removeFromTeamStorage = removeElement.parentElement.parentElement.innerText.split("\n")
+  const teamName = removeFromTeamStorage[0]
+  const team = localStorage.getItem(teamName)
+  const splitTeam =team.split(',')
+  console.log("splitTeam: ", splitTeam)
+  const pokeIndex = splitTeam.lastIndexOf(pokemon)
+  console.log("pokeIndex: ", pokeIndex)
+  splitTeam.splice(pokeIndex, 1)
+  const filteredNewTeam = splitTeam.filter(poke => poke?poke:false)
+  console.log("filteredNewTeam: ", filteredNewTeam)
+
   while (removeElement.firstChild) {
     removeElement.firstChild.remove();
   }
