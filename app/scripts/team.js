@@ -136,6 +136,7 @@ function promptNewTeamName() {
 }
 
 function createTeamContainer({ parentElt }) {
+  parentElt.innerHTML = ""
   const storage = localStorage;
   for (const key in storage) {
     if (Object.hasOwnProperty.call(storage, key)) {
@@ -220,6 +221,8 @@ function createTeamDiv({ parentElt, key }) {
         value:
           "padding: 100px; margin: 10px; background-color: lightblue; border-radius:",
       },
+      {name: "id",
+    value: `${key}`}
     ],
   });
   const teamHeader = elementFactory({
@@ -240,12 +243,45 @@ function createTeamDiv({ parentElt, key }) {
   elementFactory({
     eltType: "button",
     parentElt: teamHeader,
-    text: "x",
-    classNames: ["btn", "btn-block", "btn-danger"],
-    events: [{ eventType: "click", event: handleRemoveTeam }],
-  });
-
+    text: "edit",
+    classNames: ["btn", "btn-block", "btn-warning"],
+    events: [{eventType: "click", event: handleEditTeam}]
+  })
+  elementFactory({
+      eltType: "button",
+      parentElt: teamHeader,
+      text: "x",
+      classNames: ["btn", "btn-block", "btn-danger"],
+      events: [{eventType: "click", event: handleRemoveTeam}]
+    })
   return teamDiv;
+}
+
+function handleEditTeam(e) {
+  const editElement = e.target.parentElement
+  const editToTeamStorage = editElement.innerText.split("\n")
+  const teamName = editToTeamStorage[0]
+  const pokeTeam = localStorage.getItem(teamName)
+
+  let teamNum = parseInt(localStorage.getItem("teamNum"), 10);
+  const storage = localStorage;
+  const keys = Object.keys(storage)
+  
+  let nameInput;
+  if (teamNum) {
+    nameInput = prompt("Enter Your New Team Name", `${teamName}`);
+    if (nameInput != null && nameInput != "") {
+      if (!keys.includes(nameInput)) {
+              localStorage.removeItem(teamName)
+              localStorage.setItem(`${nameInput}`,`${pokeTeam}`)
+              localStorage.setItem("teamNum", `${teamNum}`)
+              location.reload()
+              return nameInput
+          } else {
+              alert("That Team Name Already Exists!!!")
+          }
+      } 
+  } 
 }
 
 function handleRemoveTeam(e) {
