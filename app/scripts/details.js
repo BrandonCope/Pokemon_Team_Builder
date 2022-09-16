@@ -5,11 +5,9 @@ export const pokeDetail = async (e) =>  {
     e.preventDefault()
     const pokemon = e.target;
     const detailsContainer = document.querySelector("#list_content").children[1];
-    // const detailsContainer = pokemon.parentElement.nextElementSibling
     detailsContainer.innerHTML = ""
     const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
 
-    // debugger;
     await fetch(apiUrl).then((response) => (
         response.json()
     ))
@@ -153,7 +151,7 @@ function getPokemon({data, parentElt}){
 
     createMoves({parentElt: section1, moveArr})
 }
-// TODO: edit boldness of moves
+
 function createMoves({parentElt, moveArr}) {
     elementFactory({
      eltType: "p",
@@ -164,15 +162,3 @@ function createMoves({parentElt, moveArr}) {
     })
     
 }
-    
-    // const Button = elementFactory({
-    //     eltType: "button",
-    //     text: "ADD TO TEAM ",
-    //     classNames: ["btn", "btn-primary"],
-    //     parentElt: cardBody,
-    //     eventListener: {eventType: "click", func: func},
-    //   });
-      
-
-
-

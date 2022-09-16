@@ -61,12 +61,6 @@ export function createPokeList({parentElt}) {
       ],
       events: [{eventType: "click", event: pokeDetail}]
     });
-    /* 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${index}`)
-      .then((response) => response.json())
-      .then((data) => {
-        card.img = data.name;
-      }); */
   }
 
   parentElt.appendChild(element);
