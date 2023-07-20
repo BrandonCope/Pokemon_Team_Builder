@@ -4,6 +4,8 @@ Welcome to the Pokémon Team Builder!
 
 Build your dream Pokémon team!
 
+Click [here](https://brandoncope.github.io/Pokemon_Team_Builder/) to demo our project!
+
 Pokémon Team Builder is designed to help you design your dream team.
 
 Create and design custom Pokémon teams for better battle organizations.
